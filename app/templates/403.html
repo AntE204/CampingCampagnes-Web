@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Page interdite{% endblock %}
+
+{% block content %}
+<div class="error-container">
+    <h1>403 Forbidden</h1>
+    <p>Désolé, vous ne disposez pas des droits nécessaire pour accéder à la page demandée.</p>
+</div>
+{% endblock %}
+
+{% block footer %}
+<p>Retourner à l'accueil : 
+   <a href="{{ url_for('accueil') }}"><button>Accueil</button></a>
+</p>
+{% endblock %}
