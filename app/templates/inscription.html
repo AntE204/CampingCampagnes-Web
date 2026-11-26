@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Inscription
+{% endblock %}
+
+{% block body %}
+    <div id="content">
+        <h1>Formulaire d'inscription</h1>
+
+        {% if popup %}
+            <div class="alert alert-{{ popup.type }}">
+                {{ popup.message }}
+            </div>
+        {% endif %}
+
+        <form action="" method="POST">
+            {{ form.csrf_token }}
+    
+            <div class="form-group">
+                <label for="nom">Nom</label>
+                {{ form.nom(class_="form-control") }}
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="prenom">Prénom</label>
+                {{ form.prenom(class_="form-control") }}
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                {{ form.email(class_="form-control") }}
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="mdp">Mot de passe</label>
+                {{ form.mdp(class_="form-control") }}
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="mdp_confirm">Confirmer le mot de passe</label>
+                {{ form.mdp_confirm(class_="form-control") }}
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="ville">Ville</label>
+                {{ form.ville(class_="form-control") }}
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="rue">Rue</label>
+                {{ form.rue(class_="form-control") }}
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="code_postal">Code postal</label>
+                {{ form.code_postal(class_="form-control") }}
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="tel">Numéro de téléphone (facultatif)</label>
+                {{ form.tel(class_="form-control") }}
+            </div>
+            <br>
+    
+            {{ form.submit }}
+        </form>
+    </div>
+{% endblock %}

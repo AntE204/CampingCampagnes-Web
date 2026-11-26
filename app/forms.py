@@ -1,18 +1,60 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, SubmitField
-from wtforms.validators import InputRequired, Length
+from wtforms import StringField, SubmitField, EmailField, PasswordField
+from wtforms.validators import InputRequired, Length, Optional, EqualTo
 
-class ExampleForm(FlaskForm):
-    nom = StringField("Nom de l'utilisateur", validators=[
+class InscriptionForm(FlaskForm):
+    nom = StringField("Nom", validators=[
         InputRequired(message="Le nom est obligatoire."),
         Length(min=2, max=50)
     ])
-    prenom = StringField("Prénom de l'utilisateur", validators=[
+
+    prenom = StringField("Prénom", validators=[
         InputRequired(message="Le prénom est obligatoire."),
         Length(min=2, max=50)
     ])
-    role = SelectField("Rôle", choices=[
-        ("utilisateur", "Utilisateur"),
-        ("administrateur", "Administrateur")
+
+    email = EmailField("Email", validators=[
+        InputRequired(message="L'email est obligatoire.")
     ])
+
+    mdp = PasswordField("Mot de passe", validators=[
+        InputRequired(message="Le mot de passe est obligatoire.")
+    ])
+
+    mdp_confirm = PasswordField("Confirmer ot de passe", validators=[
+        InputRequired(message="La confirmation du mot de passe est obligatoire."),
+        EqualTo("password", message="Les mots de passe doivent être les mêmes."),
+    ])
+
+    rue = StringField("Rue", validators=[
+        InputRequired(message="La rue est obligatoire."),
+        Length(min=2, max=50)
+    ])
+
+    ville = StringField("Ville", validators=[
+        InputRequired(message="La ville est obligatoire."),
+        Length(min=2, max=50)
+    ])
+
+    code_postal = StringField("Code postal", validators=[
+        InputRequired(message="Le code postal est obligatoire."),
+        Length(min=2, max=50)
+    ])
+
+    tel = StringField("Numéro de téléphone", validators=[
+        Optional(),
+        Length(min=14, max=14)
+    ])
+
+    submit = SubmitField("S'inscrire")
+
+class ConnexionForm(FlaskForm):
+    email = EmailField("Email", validators=[
+        InputRequired(message="L'email est obligatoire.")
+    ])
+
+    mdp = PasswordField("Mot de passe", validators=[
+        InputRequired(message="Le mot de passe est obligatoire.")
+    ])
+
     submit = SubmitField("Se connecter")
