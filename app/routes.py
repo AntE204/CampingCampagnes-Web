@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template
-from .forms import InscriptionForm, ConnexionForm
+from .forms import InscriptionForm, ConnexionForm, ProfilForm
 
 @app.route("/inscription", methods=["GET", "POST"])
 def inscription():
@@ -11,6 +11,8 @@ def inscription():
         nom = form.nom.data
         prenom = form.prenom.data
         email = form.email.data
+        mdp = form.mdp.data
+        mdp_confirm = form.mdp_confirm.data
         ville = form.ville.data
         rue = form.rue.data
         code_postal = form.code_postal.data
@@ -42,3 +44,33 @@ def connexion():
         # TODO check les creds avec DB
 
     return render_template("connexion.html", form=form, popup=popup)
+
+@app.route("/profil", methods=["GET", "POST"])
+def profil():
+    form = ProfilForm()
+    popup = None
+
+    # TODO récupération des infos en DB
+    form.nom.data = "nom"
+    form.prenom.data = "prénom"
+    form.email.data = "email@ok.com"
+    form.ville.data = "ville"
+    form.rue.data = "rue"
+    form.code_postal.data = "0550002D"
+    form.tel.data = "06 07 08 09 10"
+    form.role.data = "administrateur"
+
+    if form.validate_on_submit():
+        nom = form.nom.data
+        prenom = form.prenom.data
+        ville = form.ville.data
+        rue = form.rue.data
+        code_postal = form.code_postal.data
+        tel = form.tel.data
+
+        popup = {
+            "message": "Profil mis à jour.",
+            "type": "primary"
+        }
+
+    return render_template("profil.html", form=form, popup=popup)

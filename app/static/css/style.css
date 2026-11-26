@@ -2,7 +2,10 @@ body {
     font-family: Arial, sans-serif;
     margin: 20px;
     line-height: 1.6;
-    background-color:#EEE;
+    background: url("https://images.wallpaperscraft.com/image/single/lawn_forest_mountains_144578_2560x1440.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
 }
 
 #content {
