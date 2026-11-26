@@ -1,16 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Page introuvable{% endblock %}
+{% block title %}
+    Page introuvable
+{% endblock %}
 
-{% block content %}
-<div class="error-container">
+{% block body %}
+<div id="content">
     <h1>404 Not Found</h1>
     <p>Désolé, la page demandée n'existe pas.</p>
 </div>
-{% endblock %}
-
-{% block footer %}
-<p>Retourner à l'accueil : 
-   <a href="{{ url_for('accueil') }}"><button>Accueil</button></a>
-</p>
 {% endblock %}
