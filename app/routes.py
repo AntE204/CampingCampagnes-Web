@@ -74,3 +74,19 @@ def profil():
         }
 
     return render_template("profil.html", form=form, popup=popup)
+
+@app.route("/desinscription", methods=["DELETE"])
+def desinscription():
+    ...
+
+@app.route("/animations", methods=["GET", "POST"])
+def animations():
+    ...
+
+@app.route("/agenda")
+def agenda():
+    ...
+
+@app.route("/planning", methods=["GET", "POST"])
+def planning():
+    ...
