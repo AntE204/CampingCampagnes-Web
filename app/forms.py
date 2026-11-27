@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, EmailField, PasswordField
+from wtforms import StringField, EmailField, PasswordField
 from wtforms.validators import InputRequired, Length, Optional, EqualTo
 
 class InscriptionForm(FlaskForm):
@@ -22,8 +22,7 @@ class InscriptionForm(FlaskForm):
     ])
 
     mdp_confirm = PasswordField("Confirmer ot de passe", validators=[
-        InputRequired(message="La confirmation du mot de passe est obligatoire."),
-        EqualTo("password", message="Les mots de passe doivent être les mêmes."),
+        InputRequired(message="La confirmation du mot de passe est obligatoire.")
     ])
 
     rue = StringField("Rue", validators=[
@@ -42,8 +41,7 @@ class InscriptionForm(FlaskForm):
     ])
 
     tel = StringField("Numéro de téléphone", validators=[
-        Optional(),
-        Length(min=14, max=14)
+        Optional()
     ])
 
 class ConnexionForm(FlaskForm):

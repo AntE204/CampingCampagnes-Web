@@ -1,3 +1,5 @@
+from .config import Config
+
 def is_logged(session: dict) -> bool:
     return False
 

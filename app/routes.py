@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, session, url_for, redirect, abort
 from .forms import InscriptionForm, ConnexionForm, ProfilForm
 from .help import is_logged, is_animateur
+from .db import DB
 
 @app.route("/")
 def index():
@@ -31,15 +32,15 @@ def inscription():
             "type": "warning"
         }
 
+        # TODO verif du mdp (même mdp que confirm, règle de sécu)
         # TODO insérer en DB, check si email existe déjà
+
+        res = DB.inscription(nom, prenom, email, mdp, ville, rue, code_postal, tel)
 
     return render_template("inscription.html", form=form, popup=popup)
 
 @app.route("/connexion", methods=["GET", "POST"])
 def connexion():
-    if not is_logged(session):
-        return redirect(url_for("inscription"))
-
     form = ConnexionForm()
     popup = None
 

@@ -9,6 +9,8 @@
 </head>
 <body>
     <header>
+        <a href="{{ url_for('index') }}">🌲 CampingCampagnes</h1>
+
         <a href="{{ url_for('index') }}">Accueil</a>
         <a href="{{ url_for('animations') }}">Animations</a>
 
@@ -27,6 +29,6 @@
     </header>
 
     {% block body %}
-    {% endblock %}  
+    {% endblock %}
 </body>
 </html>
