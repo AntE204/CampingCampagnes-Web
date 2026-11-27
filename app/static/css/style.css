@@ -1,11 +1,39 @@
+:root {
+    --bg-color: rgba(32, 144, 255, 0.334);
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
-    line-height: 1.6;
     background: url("https://images.wallpaperscraft.com/image/single/lawn_forest_mountains_144578_2560x1440.jpg");
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
+}
+
+header {
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 6px 16px;
+    box-shadow: 0px 0px 4px 4px var(--bg-color);
+}
+
+header a {
+    text-decoration: none;
+    padding: 1rem;
+    color: rgb(0, 95, 190);
+    font-weight: bold;
+    transition: 200ms;
+}
+
+header a:hover {
+    transition: 200ms;
+    color: rgb(0, 65, 131);
 }
 
 #content {

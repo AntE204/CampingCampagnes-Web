@@ -8,7 +8,25 @@
     <title>{% block title %}App{% endblock %}</title>
 </head>
 <body>
+    <header>
+        <a href="{{ url_for('index') }}">Accueil</a>
+        <a href="{{ url_for('animations') }}">Animations</a>
+
+        {% if not logged %}
+            <a href="{{ url_for('inscription') }}">Inscription</a>
+            <a href="{{ url_for('connexion') }}">Connexion</a>
+        {% else %}
+            <a href="{{ url_for('profil') }}">Profil</a>
+            {% if is_animateur %}
+                <a href="{{ url_for('planning') }}">Planning</a>
+            {% else %}
+                <a href="{{ url_for('agenda') }}">Agenda</a>
+            {% endif %}
+            <a href="{{ url_for('deconnexion') }}">Déconnexion</a>
+        {% endif %}
+    </header>
+
     {% block body %}
-    {% endblock %}    
+    {% endblock %}  
 </body>
 </html>
