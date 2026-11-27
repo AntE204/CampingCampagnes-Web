@@ -1,6 +1,7 @@
 from app import app
-from flask import render_template
+from flask import render_template, session, url_for, redirect, abort
 from .forms import InscriptionForm, ConnexionForm, ProfilForm
+from .help import is_logged, is_animateur
 
 @app.route("/")
 def index():
@@ -8,6 +9,9 @@ def index():
 
 @app.route("/inscription", methods=["GET", "POST"])
 def inscription():
+    if is_logged(session):
+        return redirect(url_for("index"))
+    
     form = InscriptionForm()
     popup = None
 
@@ -33,6 +37,9 @@ def inscription():
 
 @app.route("/connexion", methods=["GET", "POST"])
 def connexion():
+    if not is_logged(session):
+        return redirect(url_for("inscription"))
+
     form = ConnexionForm()
     popup = None
 
@@ -51,6 +58,9 @@ def connexion():
 
 @app.route("/profil", methods=["GET", "POST"])
 def profil():
+    if not is_logged(session):
+        return redirect(url_for("connexion"))
+
     form = ProfilForm()
     popup = None
 
@@ -72,6 +82,8 @@ def profil():
         code_postal = form.code_postal.data
         tel = form.tel.data
 
+        # TODO modif du profil en DB
+
         popup = {
             "message": "Profil mis à jour.",
             "type": "primary"
@@ -79,18 +91,45 @@ def profil():
 
     return render_template("profil.html", form=form, popup=popup)
 
+@app.route("/deconnexion")
+def deconnexion():
+    session.clear()
+    return redirect(url_for("index"))
+
 @app.route("/desinscription", methods=["DELETE"])
 def desinscription():
-    ...
+    if not is_logged(session):
+        return redirect(url_for("connexion"))
+    
+    if is_animateur(session):
+        return redirect("index")
+    
+    # TODO supprimer le compte avec ID stocké en session
 
 @app.route("/animations", methods=["GET", "POST"])
 def animations():
-    ...
+    # TODO pouvoir s'inscrire uniquement si logged et pas animateur
+    return render_template("animations.html")
 
 @app.route("/agenda")
 def agenda():
-    ...
+    if not is_logged(session):
+        return redirect(url_for("connexion"))
+
+    if is_animateur(session):
+        return redirect(url_for("index"))
+
+    # TODO récup anims où un campeur est inscrit (par ID en session)
+    return render_template("agenda.html")
 
 @app.route("/planning", methods=["GET", "POST"])
 def planning():
-    ...
+    if not is_logged(session):
+        return redirect(url_for("connexion"))
+
+    if not is_animateur(session):
+        return redirect(url_for("index"))
+
+    # TODO récup des animations animées par animateur (avec ID en session)
+    # pouvoir faire l'appel avec checkboxes
+    return render_template("planning.html")
